@@ -57,6 +57,14 @@ namespace Test
         }
 
         [TestMethod]
+        public async Task SetColorTempAsync()
+        {
+            var client = new TapoDeviceClient();
+
+            await client.SetColorAsync(_deviceKey, TapoColor.FromTemperature(4500, 10));
+        }
+
+        [TestMethod]
         public async Task SetStateAsync()
         {
             var client = new TapoDeviceClient();

@@ -27,7 +27,7 @@ namespace TapoConnect
             Hue = hue;
             Saturation = saturation;
             Brightness = brightness;
-            ColorTemp = null;
+            ColorTemp = 0;
         }
 
         protected TapoColor(int colorTemp, int? brightness)
