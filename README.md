@@ -1,6 +1,8 @@
 # TapoConnect
 Unofficial TP-Link Tapo smart device library for C#.
 
+[![NuGet version (TapoConnect)](https://img.shields.io/nuget/v/TapoConnect.svg)](https://www.nuget.org/packages/TapoConnect/)
+
 ## Tested With
  * [Tapo L530E](https://www.tapo.com/uk/product/smart-light-bulb/tapo-l530e/)
 
