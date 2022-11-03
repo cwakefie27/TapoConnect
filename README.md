@@ -72,5 +72,9 @@ TP-Link and all respective product names are copyright TP-Link Technologies Co, 
 
 Credit to this API go to:
 * Ported from: https://github.com/dickydoouk/tp-link-tapo-connect
-* https://github.com/fishbigger/TapoP100
-* https://github.com/K4CZP3R/tapo-p100-java-poc
+* Original: https://github.com/fishbigger/TapoP100
+* Original:https://github.com/K4CZP3R/tapo-p100-java-poc
+
+Many thanks to [@fishbigger](https://github.com/fishbigger), [@K4CZP3R](https://github.com/K4CZP3R), and others involved for reverse enginering TP-link Tapo API in this [post](https://community.home-assistant.io/t/tp-link-tapo-p100/147792).
+
+For more details, [@K4CZP3R](https://github.com/K4CZP3R) has a [post](https://k4czp3r.xyz/reverse-engineering/tp-link/tapo/2020/10/15/reverse-engineering-tp-link-tapo.html) on the process of reverse enginering the API.
