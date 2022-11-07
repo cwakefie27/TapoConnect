@@ -5,6 +5,7 @@ Unofficial TP-Link Tapo smart device library for C#.
 
 ## Tested With
  * [Tapo L530E](https://www.tapo.com/uk/product/smart-light-bulb/tapo-l530e/)
+ * [Tapo P100](https://www.tp-link.com/us/home-networking/smart-plug/tapo-p100/)
 
 ## Examples
 

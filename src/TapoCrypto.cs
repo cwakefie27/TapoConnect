@@ -59,10 +59,11 @@ namespace TapoConnect
                 throw new ArgumentNullException(nameof(plainText));
             }
 
-            using var sha1 = SHA1.Create();
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            using var sha1 = SHA1.Create();
             var hash = sha1.ComputeHash(plainTextBytes);
-            return Convert.ToHexString(hash);
+
+            return Convert.ToHexString(hash).ToLower();
         }
 
         private static SymmetricAlgorithm GetCryptoAlgorithm(byte[] key, byte[] iv)
