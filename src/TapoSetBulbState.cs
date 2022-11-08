@@ -2,7 +2,7 @@
 
 namespace TapoConnect
 {
-    public class TapoSetBulbState : TapoSetDeviceState
+    public class TapoSetBulbState : TapoSetDeviceState, IEquatable<TapoSetDeviceState>
     {
         public TapoSetBulbState(
             TapoColor color,
@@ -47,25 +47,39 @@ namespace TapoConnect
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? ColorTemperature { get; set; }
 
-        public static bool operator ==(TapoSetBulbState obj1, TapoSetBulbState obj2)
+        public static bool operator ==(TapoSetBulbState lhs, TapoSetBulbState rhs)
         {
-            if (ReferenceEquals(obj1, obj2))
-                return true;
-            if (ReferenceEquals(obj1, null))
+            if (lhs is null)
+            {
+                if (rhs is null)
+                {
+                    return true;
+                }
+
                 return false;
-            if (ReferenceEquals(obj2, null))
-                return false;
-            return obj1.Equals(obj2);
+            }
+
+            return lhs.Equals(rhs);
         }
 
         public static bool operator !=(TapoSetBulbState obj1, TapoSetBulbState obj2) => !(obj1 == obj2);
+
         public bool Equals(TapoSetBulbState? other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
+            {
                 return false;
+            }
 
             if (ReferenceEquals(this, other))
+            {
                 return true;
+            }
+
+            if (this.GetType() != other.GetType())
+            {
+                return false;
+            }
 
             return DeviceOn == other.DeviceOn &&
                 Brightness == other.Brightness &&
@@ -73,6 +87,7 @@ namespace TapoConnect
                 Saturation == other.Saturation &&
                 ColorTemperature == other.ColorTemperature;
         }
+
         public override bool Equals(object? obj) => Equals(obj as TapoSetBulbState);
 
         public override int GetHashCode()

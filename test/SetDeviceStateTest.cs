@@ -23,5 +23,23 @@ namespace Test
 
             Assert.AreNotEqual(hex, rgb);
         }
+
+        [TestMethod]
+        public void InheritedEqualityComparison()
+        {
+            TapoSetDeviceState hex = new TapoSetBulbState(TapoColor.FromHex("34eba4"), true);
+            TapoSetBulbState rgb = new TapoSetBulbState(TapoColor.FromRgb("52, 235, 164"), true);
+
+            Assert.AreEqual(hex, rgb);
+        }
+
+        [TestMethod]
+        public void DifferntTypesEqualityComparison()
+        {
+            var hex = new TapoSetPlugState(true);
+            var rgb = new TapoSetBulbState(TapoColor.FromRgb("52, 235, 164"), true);
+
+            Assert.AreNotEqual(hex, rgb);
+        }
     }
 }

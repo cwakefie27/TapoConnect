@@ -70,7 +70,7 @@ namespace Test
             var client = new TapoDeviceClient();
 
             await client.SetStateAsync(_deviceKey, new TapoSetBulbState(
-                color: TapoColor.FromTemperature(4500, brightness: 10),
+                color: TapoColor.FromTemperature(4500),
                 deviceOn: true));
         }
     }

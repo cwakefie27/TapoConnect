@@ -1,32 +1,47 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace TapoConnect
 {
-    public abstract class TapoSetDeviceState
+    public abstract class TapoSetDeviceState : IEquatable<TapoSetDeviceState>
     {
         [JsonPropertyName("device_on")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public bool? DeviceOn { get; set; }
 
-        public static bool operator ==(TapoSetDeviceState obj1, TapoSetDeviceState obj2)
+        public static bool operator ==(TapoSetDeviceState lhs, TapoSetDeviceState rhs)
         {
-            if (ReferenceEquals(obj1, obj2))
-                return true;
-            if (ReferenceEquals(obj1, null))
+            if (lhs is null)
+            {
+                if (rhs is null)
+                {
+                    return true;
+                }
+
                 return false;
-            if (ReferenceEquals(obj2, null))
-                return false;
-            return obj1.Equals(obj2);
+            }
+
+            return lhs.Equals(rhs);
         }
 
         public static bool operator !=(TapoSetDeviceState obj1, TapoSetDeviceState obj2) => !(obj1 == obj2);
+
         public bool Equals(TapoSetDeviceState? other)
         {
-            if (ReferenceEquals(other, null))
+            if (other is null)
+            {
                 return false;
+            }
 
             if (ReferenceEquals(this, other))
+            {
                 return true;
+            }
+
+            if (this.GetType() != other.GetType())
+            {
+                return false;
+            }
 
             return DeviceOn == other.DeviceOn;
         }
