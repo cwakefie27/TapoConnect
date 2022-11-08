@@ -48,6 +48,22 @@
             }
         }
 
+        public static bool? TryGetIpAddressByMacAddress(string macAddress, out string? ipAddress)
+        {
+            var result = GetIpAddressByMacAddress(macAddress);
+
+            if (result != null)
+            {
+                ipAddress = result;
+                return true;
+            }
+            else
+            {
+                ipAddress = null;
+                return false;
+            }
+        }
+
         public static string? GetIpAddressByMacAddress(string macAddress)
         {
             if (macAddress == null)
