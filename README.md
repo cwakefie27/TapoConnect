@@ -60,8 +60,7 @@ await deviceClient.SetColorAsync(deviceKey, TapoColor.FromRgb(100, 25, 32));
 await deviceClient.SetColorAsync(deviceKey, TapoColor.FromTemperature(3500));
 
 await deviceClient.SetStateAsync(deviceKey, new TapoSetBulbState(
-    color: TapoColor.FromTemperature(3800),
-    brightness: 1,
+    color: TapoColor.FromTemperature(3800, brightness: 1),
     deviceOn: true));
 ```
 
