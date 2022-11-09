@@ -240,7 +240,7 @@ namespace TapoConnect
         public static TapoColor FromHsl(
             int hue,
             int saturation,
-            int lightness)
+            int? lightness = null)
         {
             if (hue < 0 || hue > 360)
             {
@@ -252,9 +252,9 @@ namespace TapoConnect
                 throw new ArgumentOutOfRangeException(nameof(saturation), $"Value must be between 0 and 100. ({saturation}).");
             }
 
-            if (lightness < 0 || lightness > 100)
+            if (lightness.HasValue && (lightness.Value < 0 || lightness.Value > 100))
             {
-                throw new ArgumentOutOfRangeException(nameof(saturation), $"Value must be between 0 and 100. ({lightness}).");
+                throw new ArgumentOutOfRangeException(nameof(saturation), $"Value must be between 0 and 100. ({lightness.Value}).");
             }
 
             return new TapoColor(hue, saturation, lightness);
