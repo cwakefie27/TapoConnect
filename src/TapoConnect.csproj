@@ -16,7 +16,7 @@ Credit goes to: https://github.com/dickydoouk/tp-link-tapo-connect		</Descriptio
 		<RepositoryUrl>https://github.com/cwakefie27/TapoConnect</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>TP-Link; Tapo; C#</PackageTags>
-		<Version>2.3.2</Version>
+		<Version>2.4.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
