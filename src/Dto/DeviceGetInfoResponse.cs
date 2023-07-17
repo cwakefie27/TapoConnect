@@ -78,7 +78,7 @@ namespace TapoConnect.Dto
         [JsonPropertyName("nickname")]
         public string Nickname { get; set; } = null!;
 
-        [JsonPropertyName("has_set_location_info")]
+        [JsonPropertyName("device_on")]
         public bool DeviceOn { get; set; }
 
         [JsonPropertyName("brightness")]
