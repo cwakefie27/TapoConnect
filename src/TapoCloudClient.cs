@@ -2,6 +2,8 @@
 using System.Text.Json;
 using TapoConnect.Dto;
 using TapoConnect.Exceptions;
+using TapoConnect.Protocol;
+using TapoConnect.Util;
 
 namespace TapoConnect
 {

@@ -9,7 +9,7 @@ using Org.BouncyCastle.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace TapoConnect
+namespace TapoConnect.Util
 {
     public class RsaKeyPair
     {
@@ -52,18 +52,30 @@ namespace TapoConnect
             return Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
-        public static string Sha1Hash(string plainText)
+        public static byte[] Sha1Hash(byte[] bytes)
         {
-            if (plainText == null)
+            if (bytes == null)
             {
-                throw new ArgumentNullException(nameof(plainText));
+                throw new ArgumentNullException(nameof(bytes));
             }
 
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             using var sha1 = SHA1.Create();
-            var hash = sha1.ComputeHash(plainTextBytes);
+            var hash = sha1.ComputeHash(bytes);
 
-            return Convert.ToHexString(hash).ToLower();
+            return hash;
+        }
+
+        public static byte[] Sha256Hash(byte[] bytes)
+        {
+            if (bytes == null)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+
+            using var sha1 = SHA256.Create();
+            var hash = sha1.ComputeHash(bytes);
+
+            return hash;
         }
 
         private static SymmetricAlgorithm GetCryptoAlgorithm(byte[] key, byte[] iv)
@@ -81,7 +93,7 @@ namespace TapoConnect
             return cryptor;
         }
 
-        public static string Encrypt(string data, byte[] key, byte[] iv)
+        public static byte[] Encrypt(string data, byte[] key, byte[] iv)
         {
             if (data == null)
             {
@@ -106,14 +118,14 @@ namespace TapoConnect
 
             byte[] encrypted = cipher.TransformFinalBlock(bytes, 0, data.Length);
 
-            return Convert.ToBase64String(encrypted);
+            return encrypted;
         }
 
-        public static string Decrypt(string data, byte[] key, byte[] iv)
+        public static byte[] Decrypt(byte[] bytes, byte[] key, byte[] iv)
         {
-            if (data == null)
+            if (bytes == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(bytes));
             }
 
             if (key == null)
@@ -130,11 +142,7 @@ namespace TapoConnect
 
             var cipher = cryptor.CreateDecryptor(key, iv);
 
-            var bytes = Convert.FromBase64String(data);
-
-            byte[] decrypted = cipher.TransformFinalBlock(bytes, 0, bytes.Length);
-
-            return Encoding.UTF8.GetString(decrypted);
+            return cipher.TransformFinalBlock(bytes, 0, bytes.Length);
         }
 
         public static RsaKeyPair GenerateKeyPair(string password, int length)
@@ -222,6 +230,14 @@ namespace TapoConnect
             var bytesDecrypted = decryptEngine.ProcessBlock(bytesToDecrypt, 0, bytesToDecrypt.Length);
 
             return bytesDecrypted;
+        }
+
+        public static byte[] GenerateRandomBytes(int length = 32)
+        {
+            using var rng = new RNGCryptoServiceProvider();
+            var randomBytes = new byte[length];
+            rng.GetBytes(randomBytes);
+            return randomBytes;
         }
 
         private class PasswordFinder : IPasswordFinder

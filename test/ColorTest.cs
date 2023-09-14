@@ -14,7 +14,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace Test
             Assert.AreEqual(color.Hue, 217);
             Assert.AreEqual(color.Saturation, 90);
             Assert.AreEqual(color.Brightness, 61);
-            Assert.IsNull(color.ColorTemp);
+            Assert.AreEqual(color.ColorTemp, 0);
         }
 
 

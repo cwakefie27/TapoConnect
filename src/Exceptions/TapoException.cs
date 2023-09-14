@@ -14,6 +14,7 @@
         public const int DeviceTokenExpiredOrInvalidErrorCode = 9999;
         public const int TokenExpiredErrorCode = -20651;
         public const int HttpResponseErrorCode = -10000;
+        public const int SecurePassthroughDepreacted = 1003;
 
         public static void ThrowFromErrorCode(int errorCode)
         {
@@ -30,6 +31,7 @@
                 case CloudTokenExpiredOrInvalidErrorCode: throw new TapoCloudTokenExpiredOrInvalidException("Cloud token expired or invalid");
                 case DeviceTokenExpiredOrInvalidErrorCode: throw new TapoDeviceTokenExpiredOrInvalidException("Device token expired or invalid");
                 case TokenExpiredErrorCode: throw new TapoTokenExpiredException("Token expired");
+                case SecurePassthroughDepreacted: throw new TapoSecurePassThroughProtocolDeprecatedException("Secure passthrough protocol deperecated in firmware >= \"1.1.0 Build 230721 Rel.224802\" for KLAP.");
                 default: throw new TapoException(errorCode, $"Unexpected Error Code: {errorCode}");
             }
         }
@@ -39,6 +41,10 @@
         public TapoException(int errorCode, string? message) : base(message)
         {
             ErrorCode = errorCode;
+        }
+
+        public TapoException(string? message) : base(message)
+        {
         }
     }
 }

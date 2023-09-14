@@ -1,9 +1,12 @@
 ﻿using TapoConnect.Dto;
+using TapoConnect.Protocol;
 
 namespace TapoConnect
 {
     public interface ITapoDeviceClient
     {
+        TapoDeviceProtocol Protocol { get; }
+
         Task<TapoDeviceKey> LoginByIpAsync(string ipAddress, string email, string password);
 
         Task<DeviceGetInfoResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey);

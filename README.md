@@ -1,3 +1,4 @@
+
 # TapoConnect
 Unofficial TP-Link Tapo smart device library for C#.
 
@@ -9,10 +10,19 @@ Unofficial TP-Link Tapo smart device library for C#.
 
 ## Examples
 
+**As of firmware 1.1.0 Build 230721 Rel.224802, KLAP protocol is being used over the secure pass-through protocol. As a result, this API has to attempt to login with one protocol then fallback to the other. By default, KLAP protocol will be used first since it is the new standard.**
+
 Build clients to interact with Tapo Cloud or smart device.
 ```cs
 TapoCloudClient cloudClient = new TapoCloudClient();
 TapoDeviceClient deviceClient = new TapoDeviceClient();
+
+//Specify order of login protocols to try.
+TapoDeviceClient deviceClient = new TapoDeviceClient(new List<ITapoDeviceClient>
+{
+	new KlapDeviceClient(),
+	new SecurePassthroughDeviceClient(),
+});
 ```
 
 Get devices from cloud.

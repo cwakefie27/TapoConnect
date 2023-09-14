@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TapoConnect;
+using TapoConnect.Util;
 
 namespace Test
 {

@@ -1,4 +1,4 @@
-﻿namespace TapoConnect
+﻿namespace TapoConnect.Util
 {
     public static class TapoUtils
     {
@@ -36,10 +36,10 @@
             if (text.Length == 12)
             {
                 return text.Insert(10, "-")
-                    .Insert(8 , "-")
-                    .Insert(6 , "-")
-                    .Insert(4 , "-")
-                    .Insert(2 , "-")
+                    .Insert(8, "-")
+                    .Insert(6, "-")
+                    .Insert(4, "-")
+                    .Insert(2, "-")
                     .ToLower();
             }
             else

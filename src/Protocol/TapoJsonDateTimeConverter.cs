@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace TapoConnect
+namespace TapoConnect.Protocol
 {
     public class TapoJsonDateTimeConverter : JsonConverter<DateTime>
     {
