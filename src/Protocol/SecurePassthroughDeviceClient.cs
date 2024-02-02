@@ -137,7 +137,7 @@ namespace TapoConnect.Protocol
             return response.Result;
         }
 
-        public virtual async Task<DeviceGetInfoResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey)
+        public virtual async Task<DeviceGetEnergyUsageResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey)
         {
             if (deviceKey == null)
             {
@@ -153,7 +153,7 @@ namespace TapoConnect.Protocol
 
             var jsonRequest = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
-            var response = await SecurePassthroughAsync<DeviceGetInfoResponse>(jsonRequest, deviceKey.DeviceIp, protocol.Token, deviceKey.SessionCookie, protocol.Key, protocol.Iv);
+            var response = await SecurePassthroughAsync<DeviceGetEnergyUsageResponse>(jsonRequest, deviceKey.DeviceIp, protocol.Token, deviceKey.SessionCookie, protocol.Key, protocol.Iv);
 
             return response.Result;
         }
