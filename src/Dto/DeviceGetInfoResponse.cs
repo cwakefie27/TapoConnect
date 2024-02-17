@@ -57,6 +57,12 @@ namespace TapoConnect.Dto
         [JsonPropertyName("signal_level")]
         public int SignalLevel { get; set; }
 
+        [JsonPropertyName("auto_off_status")]
+        public string? AutoOffStatus { get; set; }
+
+        [JsonPropertyName("auto_off_remain_time")]
+        public int AutoOffRemainTime { get; set; }
+
         [JsonPropertyName("latitude")]
         public int Latitude { get; set; }
 
@@ -77,6 +83,11 @@ namespace TapoConnect.Dto
 
         [JsonPropertyName("nickname")]
         public string Nickname { get; set; } = null!;
+        [JsonPropertyName("has_set_location_info")]
+        public bool HasSetLocationInfo { get; set; }
+
+        [JsonPropertyName("on_time")]
+        public float OnTime { get; set; }
 
         [JsonPropertyName("device_on")]
         public bool DeviceOn { get; set; }
@@ -99,6 +110,42 @@ namespace TapoConnect.Dto
         [JsonPropertyName("default_states")]
         public DeviceGetInfoDefaultStateDto DefaultState { get; set; } = null!;
 
+        [JsonPropertyName("power_protection_status")]
+        public string? PowerProtectionStatus { get; set; }
+        [JsonPropertyName("overcurrent_status")]
+        public string? OvercurrentStatus { get; set; }
+
+        [JsonPropertyName("error_code")]
+        public int ErrorCode { get; set; }
+    }
+
+    public class DeviceGetEnergyUsageResponse : TapoResponse<DeviceGetEnergyUsageResult>
+    {
+    }
+    public class DeviceGetEnergyUsageResult
+    {
+        [JsonPropertyName("current_power")]
+        public float CurrentPower { get; set; }
+
+        [JsonPropertyName("today_runtime")]
+        public float TodayRuntime { get; set; }
+
+        [JsonPropertyName("month_runtime")]
+        public float MonthRuntime { get; set; }
+
+        [JsonPropertyName("today_energy")]
+        public float TodayEnergy { get; set; }
+
+        [JsonPropertyName("month_energy")]
+        public float MonthEnergy { get; set; }
+        [JsonPropertyName("local_time")]
+        public DateTime LocalTime { get; set; }
+
+        [JsonPropertyName("electricity_charge")]
+        public float[]? ElectricityCharge { get; set; }
+
+        [JsonPropertyName("error_code")]
+        public int ErrorCode { get; set; }
     }
 
     public class DeviceGetInfoDefaultStateDto

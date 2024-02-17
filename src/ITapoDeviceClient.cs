@@ -9,7 +9,7 @@ namespace TapoConnect
 
         Task<TapoDeviceKey> LoginByIpAsync(string ipAddress, string email, string password);
 
-        Task<DeviceGetInfoResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey);
+        Task<DeviceGetEnergyUsageResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey);
         Task<DeviceGetInfoResult> GetDeviceInfoAsync(TapoDeviceKey deviceKey);
 
         Task SetPowerAsync(TapoDeviceKey deviceKey, bool on);

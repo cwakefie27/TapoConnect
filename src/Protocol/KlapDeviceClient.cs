@@ -81,7 +81,7 @@ namespace TapoConnect.Protocol
             return new KlapDeviceKey(deviceIp, handshake1.SessionCookie, handshake1.Timeout, handshake1.IssueTime, klapChiper);
         }
 
-        public virtual async Task<DeviceGetInfoResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey)
+        public virtual async Task<DeviceGetEnergyUsageResult> GetEnergyUsageAsync(TapoDeviceKey deviceKey)
         {
             if (deviceKey == null)
             {
@@ -97,7 +97,7 @@ namespace TapoConnect.Protocol
 
             var jsonRequest = JsonSerializer.Serialize(request, _jsonSerializerOptions);
 
-            var response = await KlapRequestAsync<DeviceGetInfoResponse>(jsonRequest, deviceKey.DeviceIp, deviceKey.SessionCookie, protocol.KlapChiper);
+            var response = await KlapRequestAsync<DeviceGetEnergyUsageResponse>(jsonRequest, deviceKey.DeviceIp, deviceKey.SessionCookie, protocol.KlapChiper);
 
             return response.Result;
         }
@@ -224,6 +224,7 @@ namespace TapoConnect.Protocol
             using var httpClient = new HttpClient();
 
             var url = $"http://{deviceIp}/app/handshake1";
+            Console.WriteLine(url);
 
             using var message = new HttpRequestMessage(HttpMethod.Post, url)
             {
@@ -234,6 +235,8 @@ namespace TapoConnect.Protocol
             var requestTime = DateTime.Now;
 
             var response = await httpClient.SendAsync(message);
+
+            Console.WriteLine(response.IsSuccessStatusCode);
 
             if (!response.IsSuccessStatusCode)
             {
