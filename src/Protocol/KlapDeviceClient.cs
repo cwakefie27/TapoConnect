@@ -224,7 +224,6 @@ namespace TapoConnect.Protocol
             using var httpClient = new HttpClient();
 
             var url = $"http://{deviceIp}/app/handshake1";
-            Console.WriteLine(url);
 
             using var message = new HttpRequestMessage(HttpMethod.Post, url)
             {
@@ -236,14 +235,13 @@ namespace TapoConnect.Protocol
 
             var response = await httpClient.SendAsync(message);
 
-            Console.WriteLine(response.IsSuccessStatusCode);
-
             if (!response.IsSuccessStatusCode)
             {
                 throw new HttpResponseException(response);
             }
 
             var responseContentBytes = await response.Content.ReadAsByteArrayAsync();
+
             if (responseContentBytes == null)
             {
                 throw new TapoKlapException($"Payload missing bytes.");
@@ -297,7 +295,12 @@ namespace TapoConnect.Protocol
                 }
                 else
                 {
-                    throw new TapoInvalidRequestException(TapoException.InvalidRequestOrCredentialsErrorCode, "Authentication hash does not match server hash.");
+                    var responseContentStr = await response.Content.ReadAsStringAsync();
+                    //This is the response string I was getting from a TAPO device without KLAP auth
+                    if (responseContentStr == "<html><body><center>200 OK</center></body></html>")
+                        throw new TapoProtocolDeprecatedException("Klap Authentication hash does not match server hash.");
+                    else
+                        throw new TapoInvalidRequestException(TapoException.InvalidRequestOrCredentialsErrorCode, "Authentication hash does not match server hash.");
                 }
             }
         }
