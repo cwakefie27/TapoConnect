@@ -300,7 +300,7 @@ namespace TapoConnect.Protocol
                     if (responseContentStr == "<html><body><center>200 OK</center></body></html>")
                         throw new TapoProtocolDeprecatedException("Klap Authentication hash does not match server hash.");
                     else
-                        throw new TapoInvalidRequestException(TapoException.InvalidRequestOrCredentialsErrorCode, "Authentication hash does not match server hash.");
+                        throw new TapoDeviceTokenExpiredOrInvalidException("Authentication hash does not match server hash.");
                 }
             }
         }
