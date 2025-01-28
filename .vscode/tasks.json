@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build Release",
+            "type": "process",
+            "command": "dotnet",
+            "group":"build",
+			"problemMatcher": "$msCompile",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/TapoConnect.csproj",
+				"--configuration",
+                "Release",
+            ]
+        },
+        {
+            "label": "push nuget",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "nuget",
+                "push",
+                "C:/Users/Cwakefield/Desktop/VisualStudio/TapoConnect/src/bin/Release/TapoConnect.${input:projectVersion}.nupkg",
+                "--api-key",
+                "${input:apiKey}",
+                "--source",
+                "https://api.nuget.org/v3/index.json"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        }
+    ],
+	"inputs": [
+        {
+			"id": "apiKey",
+			"type": "promptString",
+			"description": "Nuget API Key.",
+		},
+        {
+			"id": "projectVersion",
+			"type": "promptString",
+			"description": "C# project version.",
+		},
+    ]
+}
