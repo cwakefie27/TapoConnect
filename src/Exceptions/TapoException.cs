@@ -6,7 +6,8 @@
 
         public const int RequestMethodNotSupportedErrorCode = -10000;
         public const int InvalidPubliKeyLengthErrorCode = -1010;
-        public const int InvalidRequestOrCredentialsErrorCode = -1501;
+        public const int InvalidRequestErrorCode = -1501;
+        public const int InvalidCredentialsErrorCode = -1502;
         public const int IncorrectRequestErrorCode = -1002;
         public const int JsonFormatErrorCode = -1003;
         public const int ParameterDoesntExistErrorCode = -20104;
@@ -24,7 +25,7 @@
 
                 case RequestMethodNotSupportedErrorCode: throw new TapoInvalidRequestException(errorCode, "Request method not supported");
                 case InvalidPubliKeyLengthErrorCode: throw new TapoInvalidRequestException(errorCode, "Invalid public key length");
-                case InvalidRequestOrCredentialsErrorCode: throw new TapoInvalidRequestException(errorCode, "Invalid request or credentials");
+                case InvalidRequestErrorCode: throw new TapoInvalidRequestException(errorCode, "Invalid request");
                 case ParameterDoesntExistErrorCode: throw new TapoInvalidRequestException(errorCode, "Parameter doesn't exist");
                 case IncorrectRequestErrorCode: throw new TapoInvalidRequestException(errorCode, "Incorrect request");
                 case JsonFormatErrorCode: throw new TapoJsonException("JSON format error");

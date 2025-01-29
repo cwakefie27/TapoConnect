@@ -240,6 +240,11 @@ namespace TapoConnect.Protocol
                 throw new HttpResponseException(response);
             }
 
+            //This is the response string I was getting from a TAPO device without KLAP auth
+            var responseContentStr = await response.Content.ReadAsStringAsync();
+            if (responseContentStr == "<html><body><center>200 OK</center></body></html>")
+                throw new TapoProtocolDeprecatedException("Klap Authentication hash does not match server hash.");
+
             var responseContentBytes = await response.Content.ReadAsByteArrayAsync();
 
             if (responseContentBytes == null)
@@ -257,50 +262,38 @@ namespace TapoConnect.Protocol
                 var authHash = TapoCrypto.Sha256Hash(usernameHash.Concat(passwordHash).ToArray());
 
                 var localSeedAuthHash = TapoCrypto.Sha256Hash(localSeed.Concat(remoteSeed).Concat(authHash).ToArray());
+                var localServerHashMatches = localSeedAuthHash.SequenceEqual(serverHash);
 
-                if (localSeedAuthHash.SequenceEqual(serverHash))
+                if (!localServerHashMatches)
+                    throw new TapoInvalidCredentialException($"Local hash does not match server hash (Confirm you are using the correct username and password).");
+
+                if (response.Headers.TryGetValues("set-cookie", out var values))
                 {
-                    string sessionCookie;
+                    var s = values.First();
+
+                    var keyValue = s
+                        .Split(';')
+                        .Select(x => x.Split('='))
+                        .ToDictionary(x => x[0], x => x[1]);
+
+                    if (!keyValue.ContainsKey(TpSessionKey))
+                    {
+                        throw new Exception("Tapo login did not recieve a session id.");
+                    }
+
                     TimeSpan? timeout = null;
-
-                    if (response.Headers.TryGetValues("set-cookie", out var values))
+                    if (keyValue.ContainsKey("TIMEOUT"))
                     {
-                        var s = values.First();
-
-                        var keyValue = s
-                            .Split(';')
-                            .Select(x => x.Split('='))
-                            .ToDictionary(x => x[0], x => x[1]);
-
-                        if (keyValue.ContainsKey(TpSessionKey))
-                        {
-                            sessionCookie = $"{TpSessionKey}={keyValue[TpSessionKey]}";
-                        }
-                        else
-                        {
-                            throw new Exception("Tapo login did not recieve a session id.");
-                        }
-
-                        if (keyValue.ContainsKey("TIMEOUT"))
-                        {
-                            timeout = TimeSpan.FromSeconds(int.Parse(keyValue["TIMEOUT"]));
-                        }
-
-                        return new KlapHandshakeKey(sessionCookie, timeout, requestTime, remoteSeed, authHash);
+                        timeout = TimeSpan.FromSeconds(int.Parse(keyValue["TIMEOUT"]));
                     }
-                    else
-                    {
-                        throw new TapoNoSetCookieHeaderException("Tapo login did not recieve a set-cookie header.");
-                    }
+
+                    var sessionCookie = $"{TpSessionKey}={keyValue[TpSessionKey]}";
+
+                    return new KlapHandshakeKey(sessionCookie, timeout, requestTime, remoteSeed, authHash);
                 }
                 else
                 {
-                    var responseContentStr = await response.Content.ReadAsStringAsync();
-                    //This is the response string I was getting from a TAPO device without KLAP auth
-                    if (responseContentStr == "<html><body><center>200 OK</center></body></html>")
-                        throw new TapoProtocolDeprecatedException("Klap Authentication hash does not match server hash.");
-                    else
-                        throw new TapoDeviceTokenExpiredOrInvalidException("Authentication hash does not match server hash.");
+                    throw new TapoNoSetCookieHeaderException("Tapo login did not recieve a set-cookie header.");
                 }
             }
         }
